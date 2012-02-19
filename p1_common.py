@@ -40,6 +40,13 @@ def parse_message(msg, count):
     else:
         raise ParsingException("Bad request. Message count needs to be 2 or 4")
  
-
-
+def parse_message_type(msg):
+    prev_empty = False
+    for part in msg:
+        if len(part) == 0:
+            prev_empty = True
+            continue
+        if prev_empty:
+            return part
+    return None
 
