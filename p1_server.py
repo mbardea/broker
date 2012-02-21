@@ -294,7 +294,7 @@ class Worker(threading.Thread):
 
 def handler(signum, frame):
     sys.stderr.write("\nExiting...\n")
-    os._exit(1)
+    sys.exit(1)
 
 def main():
 
@@ -320,8 +320,7 @@ def main():
             worker = Worker(load_balancer_url)
             worker.start()
 
-        while True:
-            time.sleep(1)
+        signal.pause()
 
     except (KeyboardInterrupt, SystemExit):
         sys.stderr.write("Exiting...\n")
