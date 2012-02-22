@@ -84,7 +84,7 @@ def test():
     client = Client(context, url)
 
     requests = 10000
-    start_time = datetime.now()
+    start_time = time.time()
     for i in range(0, requests):
         (success, response) = client.send_message(["some work from you"], request_id=str(i))
         if success:
@@ -92,8 +92,7 @@ def test():
         if i % 1000 == 0:
             sys.stderr.write("Requests: %d\n" % i)
 
-    us = (datetime.now() - start_time).microseconds * 10
-    req_s = (float(requests) / us) * 1000 * 1000 
+    req_s = float(requests) / (time.time() - start_time)
 
     sys.stderr.write("%d req/s\n" % req_s)
 
